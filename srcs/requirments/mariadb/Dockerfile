@@ -1,17 +1,10 @@
-FROM debian:bullseye
+FROM debian:buster
 
-RUN apt-get update && apt-get -y install mariadb-server mariadb-client
-RUN rm -rf /var/lib/apt/lists/*
-RUN mkdir -p /var/run/mysqld
-RUN chown -R mysql:mysql /var/run/mysqld
-RUN chmod 7doc77 /var/run/mysqld
+RUN apt-get update && apt-get install -y mariadb-server mariadb-client
 
-EXPOSE 3306
-
-COPY ./conf/wordpress.sql /usr/local/bin/
-COPY ./tools/create_db.sh /usr/local/bin/
-ENTRYPOINT ["create_db.sh"]
-
-
-
-CMD ["mysqld", "--bind-address=0.0.0.0"]
+RUN sed -i 's/^bind-address\s*=.*/bind-address = 0.0.0.0/' /etc/mysql/mariadb.conf.d/50-server.cnf
+COPY tools/create.sh /
+RUN chmod 777 /create.sh
+ARG  MYSQL_USER MYSQL_PASSWORD MYSQL_DB MYSQL_HOST DB_ROOT_PASSWORD
+RUN service mysql start && ./create.sh
+CMD ["mysqld"]

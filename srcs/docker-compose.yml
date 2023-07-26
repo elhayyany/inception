@@ -1,0 +1,60 @@
+version: '3'
+
+networks:
+  inception:
+      driver: bridge
+volumes:
+  data:
+    driver_opts:
+      type: "bind"
+      o: "bind"
+      device: "/home/ael-hayy/data/mysql"
+  wordpress:
+    driver_opts:
+      type: "none"
+      o: "bind"
+      device: "/home/ael-hayy/data/wordpress"
+services:
+  nginx:
+    build: requirements/nginx/
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - 443:443
+    init : true
+    networks:
+      - inception
+    volumes:
+      - wordpress:/wordpress
+    depends_on:
+      - wordpress
+
+  mariadb:
+    container_name: mariadb
+    build: 
+      context : requirements/mariadb
+      args:
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+      - MYSQL_DB
+      - MYSQL_HOST
+      - DB_ROOT_PASSWORD
+    restart: unless-stopped
+    volumes: 
+      - data:/var/lib/mysql/
+    networks:
+        - inception
+    init: true
+  wordpress:
+    build: requirements/wordpress/
+    container_name: wordpress
+    env_file:
+      - .env
+    restart: unless-stopped
+    init : true
+    networks:
+      - inception
+    depends_on:
+      - mariadb
+    volumes:
+      - wordpress:/wordpress
