@@ -17,6 +17,5 @@ chmod +x wp-config.php
 wp core install --allow-root --url=${URL_DNS} --title=${WP_TITLE} --admin_user=${WP_ADMIN} --admin_password=${WP_ADMIN_PSW} --admin_email=${WP_ADMIN_EMAIL}
 wp user --allow-root create ${WP_USER} ${WP_EMAIL} --role=author --user_pass=${WP_USER}
 wp plugin install --allow-root redis-cache --activate
-wp redis enable --allow-root
 
 exec php-fpm7.3 -F -R

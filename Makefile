@@ -8,6 +8,6 @@ down:
 	docker compose -f ./srcs/docker-compose.yml down
 fclean:
 	docker system prune -a ; \
-	rm -rf /home/akhouya/data/mysql/* && \
-	rm -rf /home/akhouya/data/wordpress/* \
-	rm -rf /home/akhouya/data/portainer/*
+	rm -rf /home/ael-hayy/data/mysql/* && \
+	rm -rf /home/ael-hayy/data/wordpress/* \
+	rm -rf /home/ael-hayy/data/portainer/*

@@ -1,11 +1,7 @@
-FROM debian:buster
+FROM debian:bullseye
 RUN apt-get update
 
-RUN apt-get install -y php
-RUN apt-get install -y php-fpm
-RUN apt-get install -y php-mysql
-RUN apt-get install -y mariadb-client
-RUN apt-get install -y curl
+RUN apt-get install -y php php-fpm php-mysql curl
 RUN mkdir wordpress
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
 RUN cd wordpress && wp core --allow-root download
