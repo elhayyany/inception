@@ -8,12 +8,12 @@ volumes:
     driver_opts:
       type: "bind"
       o: "bind"
-      device: "/home/ael-hayy/data/mysql"
+      device: "/home/aziz/data/mysql"
   wordpress:
     driver_opts:
       type: "none"
       o: "bind"
-      device: "/home/ael-hayy/data/wordpress"
+      device: "/home/aziz/data/wordpress"
 services:
   nginx:
     build: requirements/nginx/
