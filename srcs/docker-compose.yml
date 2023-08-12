@@ -8,12 +8,12 @@ volumes:
     driver_opts:
       type: "bind"
       o: "bind"
-      device: "/home/aziz/data/mysql"
+      device: "/home/ael-hayy/data/mysql"
   wordpress:
     driver_opts:
       type: "none"
       o: "bind"
-      device: "/home/aziz/data/wordpress"
+      device: "/home/ael-hayy/data/wordpress"
 services:
   nginx:
     build: requirements/nginx/
@@ -33,15 +33,17 @@ services:
     container_name: mariadb
     build: 
       context : requirements/mariadb
-      args:
-      - MYSQL_USER
-      - MYSQL_PASSWORD
-      - MYSQL_DB
-      - MYSQL_HOST
-      - DB_ROOT_PASSWORD
+      # args:
+      # - MYSQL_USER
+      # - MYSQL_PASSWORD
+      # - MYSQL_DB
+      # - MYSQL_HOST
+      # - DB_ROOT_PASSWORD
     restart: unless-stopped
     volumes: 
       - data:/var/lib/mysql/
+    env_file:
+      - .env
     networks:
         - inception
     init: true
@@ -52,9 +54,11 @@ services:
       - .env
     restart: unless-stopped
     init : true
+    ports:
+      - "9000:9000"
     networks:
       - inception
     depends_on:
       - mariadb
     volumes:
-      - wordpress:/wordpress
+      - wordpress:/var/www/wordpress
