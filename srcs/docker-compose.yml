@@ -2,18 +2,17 @@ version: '3'
 
 networks:
   inception:
-      driver: bridge
 volumes:
   data:
-    driver_opts:
-      type: "bind"
-      o: "bind"
-      device: "/home/ael-hayy/data/mysql"
   wordpress:
-    driver_opts:
-      type: "none"
-      o: "bind"
-      device: "/home/ael-hayy/data/wordpress"
+
+
+
+
+
+
+
+
 services:
   nginx:
     build: requirements/nginx/
@@ -25,7 +24,7 @@ services:
     networks:
       - inception
     volumes:
-      - wordpress:/wordpress
+      - wordpress:/var/www/html
     depends_on:
       - wordpress
 
@@ -61,4 +60,4 @@ services:
     depends_on:
       - mariadb
     volumes:
-      - wordpress:/var/www/wordpress
+      - wordpress:/var/www/html
