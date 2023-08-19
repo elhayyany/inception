@@ -16,11 +16,10 @@ volumes:
 services:
   nginx:
     build: requirements/nginx/
-    container_name: nginx
+
     restart: unless-stopped
     ports:
       - 443:443
-    init : true
     networks:
       - inception
     volumes:
@@ -28,27 +27,9 @@ services:
     depends_on:
       - wordpress
 
-  mariadb:
-    container_name: mariadb
-    build: 
-      context : requirements/mariadb
-      # args:
-      # - MYSQL_USER
-      # - MYSQL_PASSWORD
-      # - MYSQL_DB
-      # - MYSQL_HOST
-      # - DB_ROOT_PASSWORD
-    restart: unless-stopped
-    volumes: 
-      - data:/var/lib/mysql/
-    env_file:
-      - .env
-    networks:
-        - inception
-    init: true
   wordpress:
     build: requirements/wordpress/
-    container_name: wordpress
+
     env_file:
       - .env
     restart: unless-stopped
@@ -61,3 +42,16 @@ services:
       - mariadb
     volumes:
       - wordpress:/var/www/html
+
+
+  mariadb:
+
+    build: requirements/mariadb
+
+    restart: unless-stopped
+    volumes: 
+      - data:/var/lib/mysql
+    env_file:
+      - .env
+    networks:
+        - inception

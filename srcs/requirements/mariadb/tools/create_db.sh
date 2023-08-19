@@ -1,17 +1,9 @@
-#!/bin/sh
-
-# Start MariaDB service
-# sleep 5
 service mysql start
+mysql -e "CREATE DATABASE IF NOT EXISTS \`$DB_NAME\` ;"
+mysql -e "CREATE USER IF NOT EXISTS '$USER_NAME'@'%' IDENTIFIED BY '$DB_PASS' ;"
+mysql -e "GRANT ALL PRIVILEGES ON \`$DB_NAME\`.* TO '$USER_NAME'@'%' ;"
 
-# sleep 5
-
-# Perform database setup and configuration
-mysql -h localhost --password=pass -e "create database if not exists wp;"
-mysql -h localhost --password=pass -e "GRANT ALL PRIVILEGES ON wp.* TO 'ael-hayy'@'%' IDENTIFIED BY 'ael-hayy123';"
-mysql -h localhost --password=pass -e "FLUSH PRIVILEGES;"
-# mysql -h localhost --password=pass -e "use mysql;UPDATE user SET Password=PASSWORD('pass') WHERE user='root';UPDATE user SET plugin = 'mysql_native_password', host = '%' WHERE user = 'root';FLUSH PRIVILEGES;"
 
 service mysql stop
 
-mysqld
+mysqld_safe

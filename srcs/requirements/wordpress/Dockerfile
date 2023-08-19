@@ -1,5 +1,5 @@
 FROM debian:buster
-RUN  apt-get  update && apt-get install -y curl unzip php-fpm php-mysql && mkdir -p /run/php
+RUN  apt-get  update && apt-get install -y curl unzip php-fpm php-mysql mariadb-client && mkdir -p /run/php
 
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
