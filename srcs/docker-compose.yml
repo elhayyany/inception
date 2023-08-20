@@ -5,9 +5,11 @@ networks:
 volumes:
   data:
     driver_opts:
+        type: none
         device: /home/ael-hayy/data/mariadb
   wordpress:
     driver_opts:
+      type: non
       device: /home/ael-hayy/data/wordpress
 
     # data:
