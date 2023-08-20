@@ -16,24 +16,6 @@ volumes:
       device: /home/ael-hayy/data/wordpress
       o: bind
 
-    # data:
-    #     driver: local
-    #     driver_opts:
-    #         type: none
-    #         device:  /home/olakhdar/data/wordpress
-    #         o: bind
-    # mariadbv:
-    # driver: local
-    # driver_opts:
-    #   type: none
-    #   device: /home/olakhdar/data/mariadb
-    #   o: bind
-
-
-
-
-
-
 services:
   nginx:
     build: requirements/nginx/
