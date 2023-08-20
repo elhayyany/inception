@@ -4,11 +4,24 @@ networks:
   inception:
 volumes:
   data:
-    device: /home/ael-hayy/data/mariadb
+    driver_opts:
+        device: /home/ael-hayy/data/mariadb
   wordpress:
-    device: /home/ael-hayy/data/wordpress
+    driver_opts:
+      device: /home/ael-hayy/data/wordpress
 
-
+    # data:
+    #     driver: local
+    #     driver_opts:
+    #         type: none
+    #         device:  /home/olakhdar/data/wordpress
+    #         o: bind
+    # mariadbv:
+    # driver: local
+    # driver_opts:
+    #   type: none
+    #   device: /home/olakhdar/data/mariadb
+    #   o: bind
 
 
 
