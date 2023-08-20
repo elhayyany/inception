@@ -4,7 +4,9 @@ networks:
   inception:
 volumes:
   data:
+     device: /home/ael-hayy/data/mariadb
   wordpress:
+    device: /home/ael-hayy/data/wordpress
 
 
 
