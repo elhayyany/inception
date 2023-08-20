@@ -16,7 +16,7 @@ volumes:
 services:
   nginx:
     build: requirements/nginx/
-
+    image: nginx
     restart: unless-stopped
     ports:
       - 443:443
@@ -29,7 +29,7 @@ services:
 
   wordpress:
     build: requirements/wordpress/
-
+    image: wordpress
     env_file:
       - .env
     restart: unless-stopped
@@ -47,7 +47,7 @@ services:
   mariadb:
 
     build: requirements/mariadb
-
+    image: mariadb
     restart: unless-stopped
     volumes: 
       - data:/var/lib/mysql
