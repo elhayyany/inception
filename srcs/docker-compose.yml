@@ -4,13 +4,17 @@ networks:
   inception:
 volumes:
   data:
+    driver: local
     driver_opts:
         type: none
         device: /home/ael-hayy/data/mariadb
+        o: bind
   wordpress:
+    driver: local
     driver_opts:
       type: non
       device: /home/ael-hayy/data/wordpress
+      o: bind
 
     # data:
     #     driver: local
