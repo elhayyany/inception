@@ -1,59 +1,54 @@
 version: '3'
 
 networks:
-  inception:
+	inception:
 volumes:
-  data:
-     device: /home/ael-hayy/data/mariadb
-  wordpress:
-    device: /home/ael-hayy/data/wordpress
-
-
-
-
+	data:
+		device: /home/ael-hayy/data/mariadb
+	wordpress:
+		device: /home/ael-hayy/data/wordpress
 
 
 
 
 services:
-  nginx:
-    build: requirements/nginx/
-    image: nginx
-    restart: unless-stopped
-    ports:
-      - 443:443
-    networks:
-      - inception
-    volumes:
-      - wordpress:/var/www/html
-    depends_on:
-      - wordpress
+	nginx:
+		build: requirements/nginx/
+		image: nginx
+		restart: unless-stopped
+		ports:
+		  - 443:443
+		networks:
+			- inception
+		volumes:
+			- wordpress:/var/www/html
+		depends_on:
+			- wordpress
 
-  wordpress:
-    build: requirements/wordpress/
-    image: wordpress
-    env_file:
-      - .env
-    restart: unless-stopped
-    init : true
-    ports:
-      - "9000:9000"
-    networks:
-      - inception
-    depends_on:
-      - mariadb
-    volumes:
-      - wordpress:/var/www/html
+	wordpress:
+		build: requirements/wordpress/
+		image: wordpress
+		env_file:
+			- .env
+		restart: unless-stopped
+		ports:
+		- "9000:9000"
+		networks:
+			- inception
+		depends_on:
+			- mariadb
+		volumes:
+			- wordpress:/var/www/html
 
 
-  mariadb:
+	mariadb:
 
-    build: requirements/mariadb
-    image: mariadb
-    restart: unless-stopped
-    volumes: 
-      - data:/var/lib/mysql
-    env_file:
-      - .env
-    networks:
-        - inception
+		build: requirements/mariadb
+		image: mariadb
+		restart: unless-stopped
+		volumes: 
+			- data:/var/lib/mysql
+		env_file:
+			- .env
+		networks:
+			- inception
